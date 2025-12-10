@@ -838,6 +838,18 @@ header {
   transition: opacity 0.2s ease;
 }
 
+@media (max-width: 600px) {
+  .map-image-wrap {
+    padding: 10px;
+    border-radius: 18px;
+  }
+
+  .map-room-card {
+    margin-top: 16px;
+  }
+}
+
+
 /* ---------- (Прайс) ---------- */
 #price {
   padding: 0;
@@ -922,6 +934,8 @@ header {
 
 /* ---------- (Отзывы) ---------- */
 
+/* ---------- (Отзывы) ---------- */
+
 #reviews {
   background: #050505;
 }
@@ -929,30 +943,35 @@ header {
 .reviews-rows {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  overflow: hidden;
+  gap: 14px;
 }
 
+/* Одна "линия" отзывов */
 .reviews-row {
   display: flex;
   gap: 14px;
-  width: max-content;
+  overflow-x: auto;            /* свайп/скролл по горизонтали */
+  padding-bottom: 6px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 
+/* смещения линий, чтобы они начинались не ровно */
 .reviews-row.row-1 {
-  transform: translateX(0);
+  padding-left: 0;
 }
 
 .reviews-row.row-2 {
-  transform: translateX(24px);
+  padding-left: 20px;
 }
 
 .reviews-row.row-3 {
-  transform: translateX(40px);
+  padding-left: 36px;
 }
 
+/* карточка отзыва */
 .review-card {
-  min-width: 260px;
+  flex: 0 0 260px;             /* фиксированная ширина + не сжимается */
   max-width: 260px;
   background: var(--card-bg);
   border-radius: 20px;
@@ -962,9 +981,22 @@ header {
   flex-direction: column;
   gap: 6px;
   font-size: 14px;
-  flex-shrink: 0;
+  scroll-snap-align: start;    /* при свайпе красиво "прилипают" */
 }
 
+/* опционально: чуть стилизуем скроллбар (виден на ПК) */
+.reviews-row::-webkit-scrollbar {
+  height: 4px;
+}
+.reviews-row::-webkit-scrollbar-track {
+  background: transparent;
+}
+.reviews-row::-webkit-scrollbar-thumb {
+  background: rgba(255, 213, 0, 0.4);
+  border-radius: 999px;
+}
+
+/* шапка карточки */
 .review-header {
   display: flex;
   justify-content: space-between;
@@ -986,6 +1018,24 @@ header {
   font-size: 13px;
   color: var(--text-muted);
 }
+
+/* мобильная лёгкая подправка */
+@media (max-width: 600px) {
+  .review-card {
+    flex: 0 0 240px;
+    max-width: 240px;
+    padding: 14px 12px;
+  }
+
+  .reviews-row.row-2 {
+    padding-left: 12px;
+  }
+
+  .reviews-row.row-3 {
+    padding-left: 24px;
+  }
+}
+
 
 /* ---------- (Контакты) ---------- */
 
@@ -1542,6 +1592,98 @@ footer .container {
     transform: translateY(110vh);
   }
 }
+/* ==== МОБИЛЬНАЯ КОРРЕКЦИЯ ТОЧЕК НА КАРТЕ ==== */
+@media (max-width: 600px) {
+
+  /* чтобы картинка не масштабировалась ещё сильнее */
+  .map-image-wrap {
+    transform: none;
+    padding: 12px;
+  }
+
+  .map-image-wrap img.club-scheme {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Дальше — координаты для мобильной версии.
+     ЧИСЛА ПРИМЕРНЫЕ — ТЫ ПОДГОНЯЕШЬ ИХ ПОД СВОЙ СКРИН. */
+
+  .map-hotspot[data-label="SOLO 1"] {
+    top: 93% !important;
+    left: 95% !important;
+  }
+
+  .map-hotspot[data-label="SOLO 2"] {
+    top: 40% !important;
+    left: 97% !important;
+  }
+
+  .map-hotspot[data-label="DUO 1"] {
+    top: 83% !important;
+    left: 79% !important;
+  }
+
+  .map-hotspot[data-label="DUO 2"] {
+    top: 64% !important;
+    left: 79% !important;
+  }
+
+  .map-hotspot[data-label="DUO 3"] {
+    top: 34% !important;
+    left: 79% !important;
+  }
+
+  .map-hotspot[data-label="TRIO 1"] {
+    top: 70% !important;
+    left: 79% !important;
+  }
+
+  .map-hotspot[data-label="TRIO 2"] {
+    top: 47% !important;
+    left: 79% !important;
+  }
+
+  .map-hotspot[data-label="TRIO 3"] {
+    top: 26% !important;
+    left: 46% !important;
+  }
+
+  .map-hotspot[data-label="BOOTCAMP 1"] {
+    top: 49.5% !important;
+    left: 50% !important;
+  }
+
+  .map-hotspot[data-label="BOOTCAMP 2"] {
+    top: 70.5% !important;
+    left: 50% !important;
+  }
+
+  .map-hotspot[data-label="STANDART 1"] {
+    top: 58% !important;
+    left: 50% !important;
+  }
+
+  .map-hotspot[data-label="STANDART 2"] {
+    top: 35.5% !important;
+    left: 52% !important;
+  }
+
+  .map-hotspot[data-label="STANDART PS 1"] {
+    top: 11% !important;
+    left: 50% !important;
+  }
+
+  .map-hotspot[data-label="STANDART PS 2"] {
+    top: 12% !important;
+    left: 63% !important;
+  }
+
+  .map-hotspot[data-label="VIP PS"] {
+    top: 19% !important;
+    left: 75% !important;
+  }
+}
 
 
   </style>
@@ -1554,7 +1696,7 @@ footer .container {
       <nav class="nav">
         <div class="logo">
           <div class="logo-mark">
-            <img src="logo-colizeum.png" alt="Colizeum">
+            <img src="img/logo-colizeum.png" alt="Colizeum">
         </div>
           <span>COLIZEUM</span>
         </div>
@@ -1779,7 +1921,7 @@ footer .container {
     <div class="map-layout">
       <!-- Левая часть: карта с точками -->
       <div class="map-image-wrap">
-        <img src="Scheme.svg" alt="Схема компьютерного клуба COLIZEUM" class="club-scheme">
+        <img src="img/Scheme.svg" alt="Схема компьютерного клуба COLIZEUM" class="club-scheme">
 
         <!-- ==== ТОЧКИ НА КАРТЕ (координаты подгонишь под свою схему) ==== -->
 
@@ -2232,13 +2374,13 @@ footer .container {
       <div class="modal-qrs">
         <div class="modal-qr">
           <div class="modal-qr-placeholder">
-            <img src="apple-qr.png" alt="QR-код App Store">
+            <img src="img/apple-qr.png" alt="QR-код App Store">
           </div>
           <div>App Store</div>
         </div>
         <div class="modal-qr">
           <div class="modal-qr-placeholder">
-            <img src="android-qr.png" alt="QR-код Google Play">
+            <img src="img/android-qr.png" alt="QR-код Google Play">
           </div>
           <div>Google Play</div>
         </div>
@@ -2495,4 +2637,3 @@ for (let i = 0; i < 60; i++) {
 </script>
 </body>
 </html>
-
